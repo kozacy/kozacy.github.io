@@ -6,15 +6,15 @@
   
   <title>使用Python处理常用气象数据 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta name="description" content="da.salem.quick_map()n对常用的气象数据格式（二进制、文本、NC、HDF、GRIB）进行处理，前期工作当中尝试过很多Python工具包，xarray、netCDF4、pynio、iris、pygrib、h5py等等。对比下来，个人感觉xarray是最方便的，可以调用cfgrib和pynio接口直接读取各种格式数据为数组，可谓是一招吃遍天下鲜。 2、准备工作推荐使用 conda 安">
+  <meta name="description" content="1、介绍这里主要利用Python对常用的气象数据格式（二进制、文本、NC、HDF、GRIB）进行处理，前期工作当中尝试过很多Python工具包，xarray、netCDF4、pynio、iris、pygrib、h5py等等。对比下来，个人感觉xarray是最方便的，可以调用cfgrib和pynio接口直接读取各种格式数据为数组，可谓是一招吃遍天下鲜。 2、准备工作推荐使用 conda 安装xarr">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用Python处理常用气象数据">
 <meta property="og:url" content="http://example.com/2021/05/12/%E4%BD%BF%E7%94%A8Python%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E6%B0%94%E8%B1%A1%E6%95%B0%E6%8D%AE/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="da.salem.quick_map()n对常用的气象数据格式（二进制、文本、NC、HDF、GRIB）进行处理，前期工作当中尝试过很多Python工具包，xarray、netCDF4、pynio、iris、pygrib、h5py等等。对比下来，个人感觉xarray是最方便的，可以调用cfgrib和pynio接口直接读取各种格式数据为数组，可谓是一招吃遍天下鲜。 2、准备工作推荐使用 conda 安">
+<meta property="og:description" content="1、介绍这里主要利用Python对常用的气象数据格式（二进制、文本、NC、HDF、GRIB）进行处理，前期工作当中尝试过很多Python工具包，xarray、netCDF4、pynio、iris、pygrib、h5py等等。对比下来，个人感觉xarray是最方便的，可以调用cfgrib和pynio接口直接读取各种格式数据为数组，可谓是一招吃遍天下鲜。 2、准备工作推荐使用 conda 安装xarr">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2021-05-12T10:20:17.000Z">
-<meta property="article:modified_time" content="2021-05-12T10:26:37.531Z">
+<meta property="article:modified_time" content="2021-05-12T10:28:41.685Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
   
@@ -95,7 +95,7 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        <p>da.salem.quick_map()<br>n对常用的气象数据格式（二进制、文本、NC、HDF、GRIB）进行处理，前期工作当中尝试过很多Python工具包，xarray、netCDF4、pynio、iris、pygrib、h5py等等。对比下来，个人感觉xarray是最方便的，可以调用cfgrib和pynio接口直接读取各种格式数据为数组，可谓是一招吃遍天下鲜。</p>
+        <h1 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h1><p>这里主要利用Python对常用的气象数据格式（二进制、文本、NC、HDF、GRIB）进行处理，前期工作当中尝试过很多Python工具包，xarray、netCDF4、pynio、iris、pygrib、h5py等等。对比下来，个人感觉xarray是最方便的，可以调用cfgrib和pynio接口直接读取各种格式数据为数组，可谓是一招吃遍天下鲜。</p>
 <h1 id="2、准备工作"><a href="#2、准备工作" class="headerlink" title="2、准备工作"></a>2、准备工作</h1><p>推荐使用 conda 安装xarray、pynio、cfgrib等工具包。</p>
 <h1 id="3、grib格式数据读取"><a href="#3、grib格式数据读取" class="headerlink" title="3、grib格式数据读取"></a>3、grib格式数据读取</h1><p>首先需要导入xarray库</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xarray <span class="keyword">as</span> xr</span><br></pre></td></tr></table></figure>
@@ -113,7 +113,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/05/12/%E4%BD%BF%E7%94%A8Python%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E6%B0%94%E8%B1%A1%E6%95%B0%E6%8D%AE/" data-id="ckolbj5xb000226zjcd2o0zkj" data-title="使用Python处理常用气象数据" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/05/12/%E4%BD%BF%E7%94%A8Python%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E6%B0%94%E8%B1%A1%E6%95%B0%E6%8D%AE/" data-id="ckolbljsg000145zj18c9gglk" data-title="使用Python处理常用气象数据" class="article-share-link">Share</a>
       
       
       
