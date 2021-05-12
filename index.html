@@ -93,11 +93,25 @@
     
     <div class="e-content article-entry" itemprop="articleBody">
       
-        
+        <p>da.salem.quick_map()<br>n对常用的气象数据格式（二进制、文本、NC、HDF、GRIB）进行处理，前期工作当中尝试过很多Python工具包，xarray、netCDF4、pynio、iris、pygrib、h5py等等。对比下来，个人感觉xarray是最方便的，可以调用cfgrib和pynio接口直接读取各种格式数据为数组，可谓是一招吃遍天下鲜。</p>
+<h1 id="2、准备工作"><a href="#2、准备工作" class="headerlink" title="2、准备工作"></a>2、准备工作</h1><p>推荐使用 conda 安装xarray、pynio、cfgrib等工具包。</p>
+<h1 id="3、grib格式数据读取"><a href="#3、grib格式数据读取" class="headerlink" title="3、grib格式数据读取"></a>3、grib格式数据读取</h1><p>首先需要导入xarray库</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> xarray <span class="keyword">as</span> xr</span><br></pre></td></tr></table></figure>
+<p>使用cfgrib引擎读取EC数据，返回<code>xarray.Dataset</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ds &#x3D; xr.open_dataset(&#39;W_NAFP_C_ECMF_20210330174247_P_C1D03301200033012001&#39;,engine&#x3D;&#39;cfgrib&#39;)</span><br></pre></td></tr></table></figure>
+<p>运行出错</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DatasetBuildError: multiple values for key &#39;edition&#39;</span><br></pre></td></tr></table></figure>
+<p>原因是grib文件存在多个<code>edition</code>，可以在 <code>backend_kwargs</code>中的<code> filter_by_keys</code>中使用 GRIB Key 设置过滤条件，但是我们现在并不知道grib文件中有哪些关键词，因此使用<code>cfgrib.open_datasets()</code> 函数用于自动选择合适的 <code>filter_by_keys</code> 并返回多个有效的 <code>xarray.Dateset</code> 列表，<code>cfgrib.open_datasets()</code>最后加’s‘。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import cfgrib</span><br><span class="line">ds &#x3D; cfgrib.open_datasets(&#39;W_NAFP_C_ECMF_20210330174247_P_C1D03301200033012001&#39;)</span><br></pre></td></tr></table></figure>
+<p>知道grib文件关键词后，就可以在 <code>backend_kwargs</code> 中的 <code>filter_by_keys</code> 中使用 GRIB Key 设置过滤条件，下面的代码筛选文件中等压面层 (<code>&quot;typeOfLevel&quot;: &quot;isobaricInhPa&quot;</code>) 的温度场 (<code>&quot;shortName&quot;: &quot;t&quot;</code>)。另外，利用参数ID (<code>&quot;paramId&quot;: 130</code>)进行筛选也非常好用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ds &#x3D; xr.open_dataset(&#39;W_NAFP_C_ECMF_20210330174247_P_C1D03301200033012001&#39;,engine&#x3D;&#39;cfgrib&#39;,</span><br><span class="line">                     backend_kwargs&#x3D;&#123;&#39;filter_by_keys&#39;: &#123;&#39;typeOfLevel&#39;:&#39;isobaricInhPa&#39;,&#39;shortName&#39;:&#39;t&#39;&#125;&#125;)</span><br><span class="line">ds &#x3D; xr.open_dataset(&#39;W_NAFP_C_ECMF_20210330174247_P_C1D03301200033012001&#39;,engine&#x3D;&#39;cfgrib&#39;,</span><br><span class="line">                     backend_kwargs&#x3D;&#123;&#39;filter_by_keys&#39;: &#123;&quot;paramId&quot;: 130&#125;&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/05/12/%E4%BD%BF%E7%94%A8Python%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E6%B0%94%E8%B1%A1%E6%95%B0%E6%8D%AE/" data-id="ckolbaz340000wkzjedzm8ric" data-title="使用Python处理常用气象数据" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/05/12/%E4%BD%BF%E7%94%A8Python%E5%A4%84%E7%90%86%E5%B8%B8%E7%94%A8%E6%B0%94%E8%B1%A1%E6%95%B0%E6%8D%AE/" data-id="ckolbj5xb000226zjcd2o0zkj" data-title="使用Python处理常用气象数据" class="article-share-link">Share</a>
       
       
       
@@ -145,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/01/19/my-first-blog/" data-id="ckk3xdhfo00013vzj259z2a5n" data-title="my-first-blog" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/01/19/my-first-blog/" data-id="ckolbj5x8000126zj8k7vdieg" data-title="my-first-blog" class="article-share-link">Share</a>
       
       
       
@@ -192,7 +206,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/01/19/hello-world/" data-id="ckk3xdhff00003vzjeu9k2zkh" data-title="Hello World" class="article-share-link">Share</a>
+      <a data-url="http://example.com/2021/01/19/hello-world/" data-id="ckolbj5wp000026zjfyen8zbj" data-title="Hello World" class="article-share-link">Share</a>
       
       
       
